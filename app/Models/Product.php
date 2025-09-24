@@ -9,12 +9,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Product extends Model
 {
     protected $fillable = [
+        'id',
         'name',
         'price',
         'description',
         'category_id',
         'status',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'id' => 'integer',
+        ];
+    }
 
     public function name(): Attribute
     {
