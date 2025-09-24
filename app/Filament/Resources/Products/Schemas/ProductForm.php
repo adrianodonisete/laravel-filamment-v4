@@ -4,6 +4,9 @@ namespace App\Filament\Resources\Products\Schemas;
 
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Select;
+use App\Enums\ProductsStatusEnum;
 
 class ProductForm
 {
@@ -25,6 +28,14 @@ class ProductForm
                 TextInput::make('description')
                     ->label('Description')
                     ->maxLength(600),
+                Select::make('category_id')
+                    ->label('Category')
+                    ->relationship('category', 'name')
+                    ->required(),
+                Radio::make('status')
+                    ->label('Status')
+                    ->options(ProductsStatusEnum::class)
+                    ->required(),
             ]);
     }
 }

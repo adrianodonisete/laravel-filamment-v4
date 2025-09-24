@@ -24,10 +24,11 @@ class ProductsTable
                     ->label('Price')
                     ->money('brl', true)
                     ->sortable(),
-                TextColumn::make('description')
-                    ->label('Description')
-                    ->limit(10)
-                    ->wrap()
+                TextColumn::make('category.name')
+                    ->label('Category')
+                    ->searchable(isIndividual: true, isGlobal: false),
+                TextColumn::make('status')
+                    ->label('Status')
                     ->searchable(isIndividual: true, isGlobal: false),
             ])
             ->defaultSort('name')
