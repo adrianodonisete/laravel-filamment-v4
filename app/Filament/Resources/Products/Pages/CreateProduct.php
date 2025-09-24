@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Products\Pages;
 
 use App\Filament\Resources\Products\ProductResource;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Number;
 
 class CreateProduct extends CreateRecord
 {
@@ -15,5 +16,12 @@ class CreateProduct extends CreateRecord
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
+    }
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['name'] = str($data['name'])->upper();
+        $data['price'] = Number::format($data['price'], 2);
+        return $data;
     }
 }

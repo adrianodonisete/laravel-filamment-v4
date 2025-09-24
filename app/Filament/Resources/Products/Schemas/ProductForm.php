@@ -19,7 +19,7 @@ class ProductForm
                     ->label('Price')
                     ->required()
                     ->numeric()
-                    ->minValue(0)
+                    ->minValue(0.01)
                     ->step(0.01)
                     ->prefix('$'),
                 TextInput::make('description')

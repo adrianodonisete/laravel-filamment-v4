@@ -19,18 +19,18 @@ class ProductsTable
                 TextColumn::make('name')
                     ->label('Name')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable(isIndividual: true, isGlobal: false),
                 TextColumn::make('price')
                     ->label('Price')
-                    ->money('usd', true)
-                    ->sortable()
-                    ->searchable(),
+                    ->money('brl', true)
+                    ->sortable(),
                 TextColumn::make('description')
                     ->label('Description')
-                    ->limit(50)
+                    ->limit(10)
                     ->wrap()
-                    ->searchable(),
+                    ->searchable(isIndividual: true, isGlobal: false),
             ])
+            ->defaultSort('name')
             ->filters([
                 //
             ])
