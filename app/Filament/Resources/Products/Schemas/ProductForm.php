@@ -5,8 +5,9 @@ namespace App\Filament\Resources\Products\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\Select;
+use Filament\Forms\Components\ModalTableSelect;
 use App\Enums\ProductsStatusEnum;
+use App\Filament\Tables\CategoriesTable;
 
 class ProductForm
 {
@@ -28,10 +29,18 @@ class ProductForm
                 TextInput::make('description')
                     ->label('Description')
                     ->maxLength(600),
-                Select::make('category_id')
-                    ->label('Category')
+
+                // Select::make('category_id')
+                //     ->label('Category')
+                //     ->relationship('category', 'name')
+                //     ->required(),
+                ModalTableSelect::make('category_id')
+                    ->label('Category (Modal Table Select)')
                     ->relationship('category', 'name')
-                    ->required(),
+                    ->columns(['name'])
+                    ->required()
+                    ->tableConfiguration(CategoriesTable::class),
+
                 Radio::make('status')
                     ->label('Status')
                     ->options(ProductsStatusEnum::class)
