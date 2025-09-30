@@ -1,13 +1,13 @@
-@include('includes.header', ['title' => 'Controle GLPI - Lista'])
-@include('includes.menu')
+@include('layout-twcss.header', ['title' => 'Controle GLPI - Lista'])
+@include('layout-twcss.menu')
 
 <div class="flex-1 w-full">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex gap-6">
-        @include('includes.sidebar')
+        @include('layout-twcss.sidebar')
 
         <main class="flex-1">
-            @include('includes.breadcrumb', ['breadcrumbs' => [['label' => 'Controle GLPI']]])
-            @include('includes.alert')
+            @include('layout-twcss.breadcrumb', ['breadcrumbs' => [['label' => 'Controle GLPI']]])
+            @include('layout-twcss.alert')
 
             <div class="flex items-center justify-between mb-4">
                 <h1 class="text-xl font-semibold">Controle GLPI</h1>
@@ -35,5 +35,5 @@
     </div>
 </div>
 
-@include('includes.modal')
-@include('includes.footer')
+@include('layout-twcss.modal')
+@include('layout-twcss.footer')

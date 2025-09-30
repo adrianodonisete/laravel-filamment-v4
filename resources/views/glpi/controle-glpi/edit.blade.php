@@ -1,15 +1,15 @@
-@include('includes.header', ['title' => 'Editar - Controle GLPI'])
-@include('includes.menu')
+@include('layout-twcss.header', ['title' => 'Editar - Controle GLPI'])
+@include('layout-twcss.menu')
 
 <div class="flex-1 w-full">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        @include('includes.breadcrumb', [
+        @include('layout-twcss.breadcrumb', [
             'breadcrumbs' => [
                 ['label' => 'Controle GLPI', 'url' => route('glpi.controle-glpi.index')],
                 ['label' => 'Editar'],
             ],
         ])
-        @include('includes.alert')
+        @include('layout-twcss.alert')
 
         <form method="POST" action="{{ route('glpi.controle-glpi.update', $item) }}" class="space-y-4">
             @csrf
@@ -82,4 +82,4 @@
     </div>
 </div>
 
-@include('includes.footer')
+@include('layout-twcss.footer')
