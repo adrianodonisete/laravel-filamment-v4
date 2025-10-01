@@ -1,0 +1,18 @@
+---
+alwaysApply: true
+---
+
+# Your rule content
+
+- Use semantic HTML5 elements for structure and accessibility.
+- Write modular, maintainable, and reusable code (components, functions, styles).
+- Prefer CSS utility frameworks (like Tailwind CSS) or CSS-in-JS for scalable styling.
+- Optimize assets (images, fonts, scripts) for performance.
+- Ensure responsive design for all screen sizes and devices.
+- Follow accessibility (a11y) best practices (labels, ARIA, contrast, keyboard navigation).
+- Use version control (git) and meaningful commit messages.
+- Write automated tests for critical features and user flows.
+- Minimize client-side JavaScript and leverage server-side rendering or static generation when possible.
+- Keep dependencies up to date and monitor for security vulnerabilities.
+- Use environment variables for configuration, never hardcode secrets.
+- Document code, APIs, and architectural decisions clearly.
