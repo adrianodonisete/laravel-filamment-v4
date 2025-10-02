@@ -1,0 +1,57 @@
+
+
+Use syntax for laravel 12 and php 8.4.
+
+Create a Laravel model named `Book` (app/Models/Store/Book.php).
+ 
+1. Generate the model with a migration file.
+2. Add the following fields:
+   - id (int)
+   - name (string)
+   - author (string)
+   - pages (int)
+   - price (decimal:10,2)
+   - description (text)
+   - status (int)
+3. Enable timestamps and soft deletes.
+4. Add the casts for the fields date and numeric.
+5. Add the getter for the field name and author (capitalized first letter).
+6. Add the setter for the field price formatted for 2 decimal places.
+7. Create an enum `BookStatusEnum` (app/Enums/Store/BookStatusEnum.php) for the field status with the values: ACTIVE = Active, OUT_OF_STOCK = Out of Stock, INACTIVE = Inactive.
+ 
+Pro Tip: Use `$table->softDeletes()` to restore deleted records later.
+
+
+Create a RESTful CRUD controller named `BookController` (app/Http/Controllers/Api/Store/BookController.php).
+ 
+1. Add REST methods: index, show, create, store, update, destroy.
+2. Inject the `Book` model where necessary.
+3. All responses must be in JSON format.
+4. Authentication with Laravel Sanctum (https://laravel.com/docs/12.x/sanctum).
+5. Create a route file (routes/api/store/book_routes.php) for the book routes and add in routes/api.php.
+
+Pro Tip: Use `php artisan make:controller Api/Store/BookController --resource` for a quick start.
+
+
+Create a `BookResource` (app/Http/Resources/Api/Store/BookResource.php) for formatting API responses.
+
+1. Include fields: id, name, author, pages, price, description, status (BookStatusEnum).
+2. Return this resource from controller API methods.
+ 
+Pro Tip: Use `BookResource::collection()` for lists and consistent formatting.
+
+
+Add search to the `index` method of `BookController`.
+
+1. Add filter with query parameter by field name.
+2. For string fields, use `where('field', 'like', "%$field%")`.
+3. For numeric fields and enum fields, use `where('field', '=', $field)`.
+4. Paginate results with 15 items per page, return information about pagination (links, actual page, etc).
+ 
+Pro Tip: Move search logic to an Eloquent scope for reuse.
+
+
+Create a form request named `StoreBookRequest` and `UpdateBookRequest` (app/Http/Requests/Store/BookRequest.php and app/Http/Requests/Store/BookRequest.php).
+1. Add the validation rules for the fields based on the model Book.
+2. For the field status, validate with the enum BookStatusEnum options.
+3. Add the messages for the validation rules in pt-BR.
