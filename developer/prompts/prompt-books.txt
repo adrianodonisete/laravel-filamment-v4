@@ -1,7 +1,6 @@
 
 
 Use syntax for laravel 12 and php 8.4.
-Don't need to create unit tests.
 
 Create a Laravel model named `Book` (app/Models/Store/Book.php) with soft deletes.
 "Store" is just for organizing files, this folder will contain all models related to the store. 
@@ -43,9 +42,9 @@ This controller is specific for API, which is why it is in the "Api" namespace.
 2. Use the `Book` model where necessary.
 3. All responses must be in JSON format (ex: use JsonResource).
 4. Authentication with Laravel Sanctum (https://laravel.com/docs/12.x/sanctum).
-    4.1 Todos os endpoints precisam de autenticação
+    4.1 All endpoints require authentication
     4.2 Use `auth:sanctum` middleware in the routes.
-    4.3 Generate tokens for API.
+    4.3 Generate tokens for API and SPA (Laravel way: Same Route, Dynamic Guard, Custom Middleware).
 5. Create a route file (routes/api/store/book_routes.php) for the book routes and add in routes/api.php.
 6. HTTP status codes expected (200, 201, 404, 422, 400 and 500)
 
@@ -83,6 +82,6 @@ Seeders and Factories
     - status: $this->faker->randomElement(BookStatusEnum::cases())
 
 
-Create unit testes with Pest (tests/Feature/Store/BookTest.php) for the Book API endpoints.
+Create testes with PHPUnit (tests/Feature/Store/BookTest.php) for the Book API endpoints.
 1. Check if Pest is correctly installed and configured.
 2. Write tests for all CRUD operations.
