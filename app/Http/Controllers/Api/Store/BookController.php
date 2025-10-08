@@ -64,26 +64,19 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request): JsonResponse
     {
-        return response()->json([
-            'message' => 'Book created successfully',
-            'data' => $request->all(),
-        ], 200);
+        try {
+            $book = Book::create($request->validated());
 
-        // try {
-        //     // $validated = $request->validated();
-
-        //     $book = Book::create($request->all());
-
-        //     return response()->json([
-        //         'message' => 'Book created successfully',
-        //         'data' => new BookResource($book),
-        //     ], 201);
-        // } catch (\Exception $e) {
-        //     return response()->json([
-        //         'message' => 'Error creating book',
-        //         'error' => $e->getMessage(),
-        //     ], 500);
-        // }
+            return response()->json([
+                'message' => 'Book created successfully',
+                'data' => new BookResource($book),
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error creating book',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
