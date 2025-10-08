@@ -85,3 +85,8 @@ Seeders and Factories
 Create testes with PHPUnit (tests/Feature/Store/BookTest.php) for the Book API endpoints.
 1. Check if Pest is correctly installed and configured.
 2. Write tests for all CRUD operations.
+
+
+
+Criar o frontend SPA do CRUD para a model Books, usando React (https://laravel.com/docs/12.x/frontend#using-react-or-vue)
+Configurar o Laravel para utilizar Laravel com Inertia.js + React.
