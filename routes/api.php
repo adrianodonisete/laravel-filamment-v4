@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use Illuminate\Support\Facades\Route;
 
 // Authentication routes (public)
 Route::post('/login', [AuthController::class, 'login']);
@@ -12,3 +11,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'user']);
 });
+
+// Include store routes
+require __DIR__ . '/api/store/book_routes.php';
