@@ -8,8 +8,15 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('books', BookController::class);
+// Test route to check if Inertia works
+Route::get('/test', function () {
+    return Inertia::render('Welcome');
 });
+
+// Temporary route without auth for testing
+Route::get('/books-test', [BookController::class, 'index']);
+
+// Temporarily remove auth middleware for testing
+Route::resource('books', BookController::class);
 
 require __DIR__ . '/glpi/glpi_routes.php';
