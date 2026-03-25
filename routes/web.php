@@ -20,4 +20,3 @@ Route::get('/books-test', [BookController::class, 'index']);
 Route::resource('books', BookController::class);
 
 require __DIR__ . '/glpi/glpi_routes.php';
-require __DIR__ . '/ollama/ollama_routes.php';
