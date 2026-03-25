@@ -11,6 +11,9 @@ final class OllamaGenerateClient
      */
     public function generate(string $prompt, string $model, array $options): array
     {
+        // agent('Você é especialista em expandir nomes de produtos para português claro (Brasil).')
+        // ->
+
         $result = Ollama::prompt($prompt)
             ->model($model)
             ->options($options)

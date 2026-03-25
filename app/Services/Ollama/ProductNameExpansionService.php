@@ -18,8 +18,8 @@ final class ProductNameExpansionService
      */
     public function expand(string $productName): array
     {
-        $model = (string) config('ollama-laravel.model');
-        $temperature = (float) config('ollama-laravel.expansion_temperature', 0.2);
+        $model = 'qwen:0.5b';
+        $temperature = 0.5;
         $prompt = $this->buildPrompt($productName);
 
         try {
