@@ -6,6 +6,8 @@ return [
     'model' => env('OLLAMA_MODEL', 'qwen:0.5b'), // llama2
     'url' => env('OLLAMA_URL', 'http://127.0.0.1:11434'),
     'default_prompt' => env('OLLAMA_DEFAULT_PROMPT', 'Hello, how can I assist you today?'),
+    'chat_temperature' => (float) env('OLLAMA_CHAT_TEMPERATURE', 0.5),
+    'expansion_temperature' => (float) env('OLLAMA_EXPANSION_TEMPERATURE', 0.2),
 
     /*
     |--------------------------------------------------------------------------
