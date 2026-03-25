@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c88c928e6ab8e4444140d39658c67aee",
+    "content-hash": "afe002d1eee82479438201b1e5a3fd77",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -509,6 +509,75 @@
                 }
             ],
             "time": "2024-07-16T11:13:48+00:00"
+        },
+        {
+            "name": "cloudstudio/ollama-laravel",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cloudstudio/ollama-laravel.git",
+                "reference": "d848fa0d923f03ffcd90c20c8e58f5d89e3811c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cloudstudio/ollama-laravel/zipball/d848fa0d923f03ffcd90c20c8e58f5d89e3811c6",
+                "reference": "d848fa0d923f03ffcd90c20c8e58f5d89e3811c6",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.8",
+                "illuminate/contracts": "^11.0|^12.0",
+                "php": "^8.2",
+                "spatie/laravel-package-tools": "^1.16"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^8.0",
+                "orchestra/testbench": "^9.0",
+                "pestphp/pest": "^2.20",
+                "pestphp/pest-plugin-arch": "^2.0",
+                "pestphp/pest-plugin-laravel": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Ollama": "Cloudstudio\\Ollama\\Facades\\Ollama"
+                    },
+                    "providers": [
+                        "Cloudstudio\\Ollama\\OllamaServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cloudstudio\\Ollama\\": "src/",
+                    "Cloudstudio\\Ollama\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Toni Soriano",
+                    "email": "hello@cloudstudio.es",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This is my package ollama-laravel",
+            "homepage": "https://github.com/cloudstudio/ollama-laravel",
+            "keywords": [
+                "cloudstudio",
+                "laravel",
+                "ollama-laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/cloudstudio/ollama-laravel/issues",
+                "source": "https://github.com/cloudstudio/ollama-laravel/tree/v1.2.0"
+            },
+            "time": "2026-02-01T21:45:09+00:00"
         },
         {
             "name": "danharrin/date-format-converter",
