@@ -16,3 +16,5 @@ Route::middleware('auth:sanctum')->group(function () {
 require __DIR__ . '/api/store/book_routes.php';
 
 require __DIR__ . '/api/ai/ollama_routes.php';
+
+require __DIR__ . '/api/ai/openai_routes.php';
