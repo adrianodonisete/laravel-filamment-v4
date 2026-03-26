@@ -19,7 +19,7 @@ final class ProductNameExpansionService
     public function expand(string $productName): array
     {
         $model = 'qwen:0.5b';
-        $temperature = 0.5;
+        $temperature = 0.8;
         $prompt = $this->buildPrompt($productName);
 
         try {

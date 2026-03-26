@@ -15,4 +15,4 @@ Route::middleware('auth:sanctum')->group(function () {
 // Include store routes
 require __DIR__ . '/api/store/book_routes.php';
 
-require __DIR__ . '/api/ollama/ollama_routes.php';
+require __DIR__ . '/api/ai/ollama_routes.php';
