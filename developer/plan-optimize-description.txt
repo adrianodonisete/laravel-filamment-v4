@@ -46,6 +46,7 @@ Etapa 2:
 Calcular a similaridade entre as descrições otimizadas nos itens da tabela vinc_produtos_descricao_otimizada.
 Se o produto estiver na tabela vinc_produtos_sugestoes, não calcular a similaridade.
 Se o produto estiver na tabela vinc_produtos_tratados, não calcular a similaridade.
+* Essas notas são apenas sugestões e poderão ser ajustadas posteriormente.
 Definir um prazo pra calcular novamente.
 
 Tabela: vinc_produtos_sugestoes
