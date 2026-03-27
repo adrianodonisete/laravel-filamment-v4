@@ -13,7 +13,7 @@ return [
             'api_secret' => env('AWS_SECRET_ACCESS_KEY'), // Ignored with `use_default_credential_provider` === true
             'session_token' => env('AWS_SESSION_TOKEN'), // Only required for temporary credentials. Ignored with `use_default_credential_provider` === true
 
-            'model' => env('AWS_BEDROCK_MODEL', 'anthropic.claude-3-haiku-20240307-v1:0'),
+            'model' => env('AWS_BEDROCK_MODEL', 'anthropic.claude-sonnet-4-5-20250929-v1:0'),
             'expansion_temperature' => (float) env('AWS_BEDROCK_EXPANSION_TEMPERATURE', 0.2),
         ],
     ],

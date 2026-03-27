@@ -22,8 +22,8 @@ final class BedrockProductNameExpansionService
         /** @var array<string, mixed> $providerConfig */
         $providerConfig = config('prism.providers.bedrock', []);
 
-        $model = (string) ($providerConfig['model'] ?? 'anthropic.claude-3-haiku-20240307-v1:0');
-        $temperature = (float) ($providerConfig['expansion_temperature'] ?? 0.2);
+        $model = (string) $providerConfig['model'];
+        $temperature = (float) $providerConfig['expansion_temperature'];
         $prompt = $this->buildPrompt($productName);
 
         try {
@@ -37,8 +37,8 @@ final class BedrockProductNameExpansionService
 
         return [
             'expanded_name' => $expandedName,
-            'raw' => $raw,
             'model' => $model,
+            'raw' => $raw,
         ];
     }
 

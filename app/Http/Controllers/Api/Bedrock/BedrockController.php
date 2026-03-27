@@ -19,13 +19,15 @@ class BedrockController extends Controller
 
         try {
             $result = $expansionService->expand($productName);
-        } catch (BedrockUnavailableException) {
+        } catch (BedrockUnavailableException $e) {
             return response()->json([
                 'message' => 'O serviço de IA não está disponível. Tente novamente.',
+                'error' => $e->getMessage(),
             ], 502);
-        } catch (InvalidExpansionResponseException) {
+        } catch (InvalidExpansionResponseException $e) {
             return response()->json([
                 'message' => 'Não foi possível interpretar a resposta do modelo.',
+                'error' => $e->getMessage(),
             ], 422);
         }
 
