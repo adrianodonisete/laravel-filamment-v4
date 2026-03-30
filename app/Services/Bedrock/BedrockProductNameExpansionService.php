@@ -41,7 +41,6 @@ final class BedrockProductNameExpansionService
             'marca' => $parsed['marca'] ?? null,
             'embalagem' => $parsed['embalagem'] ?? null,
             'medida' => $parsed['medida'] ?? null,
-            'model' => $model,
             'raw' => $raw,
         ];
     }
@@ -49,7 +48,7 @@ final class BedrockProductNameExpansionService
     private function buildPrompt(string $productName): string
     {
         $instructions = <<<'PROMPT'
-Você expande abreviações em nomes de produtos (farmacêuticos e embalagem) para português claro (Brasil).
+Você expande abreviações em nomes de produtos (farmacêuticos, bebidas, alimentos, utensílios, etc.) para português claro (Brasil).
 Nâo remover conteúdo da descrição, apenas tentar expandir as abreviações.
 Obter a marca, embalagem e medida do produto.
 Se não conseguir obter a marca, embalagem ou medida, retornar "null" nos campos de marca, embalagem e medida, conforme exemplos abaixo.
@@ -66,14 +65,11 @@ Responda APENAS com um objeto JSON válido, sem markdown, sem texto antes ou dep
 {"expanded_name":"string", "marca": "string" | null, "embalagem": "string" | null, "medida": "string" | null}
 
 Exemplos:
-Entrada: Paracetamol 500mg 10cmp
-Saída: {"expanded_name":"Paracetamol 500mg 10 comprimidos", "marca": null, "embalagem": "comprimidos", "medida": "500mg"}
-
 Entrada: Ibuprofeno 400mg 20caps EMS
 Saída: {"expanded_name":"Ibuprofeno 400mg 20 cápsulas", "marca": "EMS", "embalagem": "cápsulas", "medida": "400mg"}
 
-Entrada: Vinho Chileno Tinto Concha y Toro, Cabernet Sauvignon 750ml (Garrafa)
-Saída: {"expanded_name":"Vinho Chileno Tinto Concha y Toro, Cabernet Sauvignon 750ml (Garrafa)", "marca": "Concha y Toro", "embalagem": "garrafa", "medida": "750ml"}
+Entrada: Vinho Chileno Tinto Concha y Toro, Cabernet Sauvignon 750ml (Garrafa de vidro)
+Saída: {"expanded_name":"Vinho Chileno Tinto Concha y Toro, Cabernet Sauvignon 750ml (Garrafa de vidro)", "marca": "Concha y Toro", "embalagem": "garrafa de vidro", "medida": "750ml"}
 
 Entrada: "- Plataformas de perfuracao ou de exploracao, (flutuantes ou submersiveis)"
 Saída: {"expanded_name":"Plataformas de perfuração ou de exploração flutuantes ou submersíveis", "marca": null, "embalagem": null, "medida": null}

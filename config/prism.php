@@ -15,6 +15,8 @@ return [
 
             'model' => env('AWS_BEDROCK_MODEL'),
             'expansion_temperature' => (float) env('AWS_BEDROCK_EXPANSION_TEMPERATURE', 0.2),
+            'batch_size' => (int) env('AWS_BEDROCK_BATCH_SIZE', 20),
+            'expansion_cache_ttl' => (int) env('AWS_BEDROCK_CACHE_TTL', 86400), // segundos; 86400 = 24h
         ],
     ],
 ];
