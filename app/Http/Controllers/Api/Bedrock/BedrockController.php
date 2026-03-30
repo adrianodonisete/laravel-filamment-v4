@@ -33,7 +33,7 @@ class BedrockController extends Controller
 
         $payload = [
             'original' => $productName,
-            'expanded_name' => $result['expanded_name'],
+            'result' => $result,
             'model' => $result['model'],
         ];
 
@@ -42,5 +42,28 @@ class BedrockController extends Controller
         }
 
         return response()->json($payload);
+    }
+
+    public function testProfile(): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Profile test',
+            'env' => [
+                'AWS_USE_DEFAULT_CREDENTIAL_PROVIDER' => env('AWS_USE_DEFAULT_CREDENTIAL_PROVIDER'),
+                'AWS_ACCESS_KEY_ID' => env('AWS_ACCESS_KEY_ID'),
+                'AWS_SECRET_ACCESS_KEY' => env('AWS_SECRET_ACCESS_KEY'),
+                'AWS_REGION' => env('AWS_REGION'),
+                'AWS_BEDROCK_EXPANSION_TEMPERATURE' => env('AWS_BEDROCK_EXPANSION_TEMPERATURE'),
+                'AWS_BEDROCK_MODEL' => env('AWS_BEDROCK_MODEL'),
+            ],
+            'config' => [
+                'AWS_USE_DEFAULT_CREDENTIAL_PROVIDER' => config('prism.providers.bedrock.use_default_credential_provider'),
+                'AWS_ACCESS_KEY_ID' => config('prism.providers.bedrock.api_key'),
+                'AWS_SECRET_ACCESS_KEY' => config('prism.providers.bedrock.api_secret'),
+                'AWS_REGION' => config('prism.providers.bedrock.region'),
+                'AWS_BEDROCK_EXPANSION_TEMPERATURE' => config('prism.providers.bedrock.expansion_temperature'),
+                'AWS_BEDROCK_MODEL' => config('prism.providers.bedrock.model'),
+            ],
+        ]);
     }
 }

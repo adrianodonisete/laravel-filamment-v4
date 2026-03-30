@@ -20,6 +20,8 @@ final class BedrockGenerateClient
     {
         $temperature = (float) ($options['temperature'] ?? 0.2);
 
+        // dd(Bedrock::KEY);
+
         /** @var TextResponse $response */
         $response = $this->prism->text()
             ->using(Bedrock::KEY, $model)
@@ -30,7 +32,7 @@ final class BedrockGenerateClient
 
         return [
             'response' => trim($response->text),
-            'prism_response' => $response->toArray(),
+            // 'prism_response' => $response->toArray(),
         ];
     }
 }

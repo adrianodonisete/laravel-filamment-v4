@@ -33,10 +33,14 @@ final class BedrockProductNameExpansionService
         }
 
         $text = $this->extractModelText($raw);
-        $expandedName = $this->parser->parse($text);
+        $parsed = $this->parser->parse($text);
 
         return [
-            'expanded_name' => $expandedName,
+            'success' => $parsed['success'] ?? false,
+            'expanded_name' => $parsed['expanded_name'] ?? '',
+            'marca' => $parsed['marca'] ?? null,
+            'embalagem' => $parsed['embalagem'] ?? null,
+            'medida' => $parsed['medida'] ?? null,
             'model' => $model,
             'raw' => $raw,
         ];
@@ -46,29 +50,33 @@ final class BedrockProductNameExpansionService
     {
         $instructions = <<<'PROMPT'
 Você expande abreviações em nomes de produtos (farmacêuticos e embalagem) para português claro (Brasil).
+Nâo remover conteúdo da descrição, apenas tentar expandir as abreviações.
+Obter a marca, embalagem e medida do produto.
+Se não conseguir obter a marca, embalagem ou medida, retornar "null" nos campos de marca, embalagem e medida, conforme exemplos abaixo.
 
 Regras:
 - Não altere dosagens (mg, ml, %, etc.) nem quantidades numéricas.
 - Não invente substâncias ou dados que não estejam no nome.
 - Se uma abreviação for ambígua, use a forma mais comum em rótulos no Brasil ou mantenha o trecho original.
 - Se o nome do produto for uma abreviação, use a forma mais comum em rótulos no Brasil ou mantenha o trecho original.
-- Substitua hífens, parênteses, colchetes, aspas ou chaves por espaços 
-- Não remover o conteúdo entre parênteses, colchetes, aspas ou chaves.
 - Remover espaços duplicados e espaços em branco extras.
 - Não remover pontos ou vírgulas de números.
 
 Responda APENAS com um objeto JSON válido, sem markdown, sem texto antes ou depois. Formato exato:
-{"expanded_name":"string"}
+{"expanded_name":"string", "marca": "string" | null, "embalagem": "string" | null, "medida": "string" | null}
 
 Exemplos:
 Entrada: Paracetamol 500mg 10cmp
-Saída: {"expanded_name":"Paracetamol 500mg 10 comprimidos"}
+Saída: {"expanded_name":"Paracetamol 500mg 10 comprimidos", "marca": null, "embalagem": "comprimidos", "medida": "500mg"}
 
-Entrada: Ibuprofeno 400mg 20caps
-Saída: {"expanded_name":"Ibuprofeno 400mg 20 cápsulas"}
+Entrada: Ibuprofeno 400mg 20caps EMS
+Saída: {"expanded_name":"Ibuprofeno 400mg 20 cápsulas", "marca": "EMS", "embalagem": "cápsulas", "medida": "400mg"}
+
+Entrada: Vinho Chileno Tinto Concha y Toro, Cabernet Sauvignon 750ml (Garrafa)
+Saída: {"expanded_name":"Vinho Chileno Tinto Concha y Toro, Cabernet Sauvignon 750ml (Garrafa)", "marca": "Concha y Toro", "embalagem": "garrafa", "medida": "750ml"}
 
 Entrada: "- Plataformas de perfuracao ou de exploracao, (flutuantes ou submersiveis)"
-Saída: {"expanded_name":"Plataformas de perfuração ou de exploração flutuantes ou submersíveis"}
+Saída: {"expanded_name":"Plataformas de perfuração ou de exploração flutuantes ou submersíveis", "marca": null, "embalagem": null, "medida": null}
 
 Nome do produto:
 PROMPT;
