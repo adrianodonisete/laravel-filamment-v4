@@ -11,7 +11,7 @@ final class BedrockBatchExpansionService
 {
     public function __construct(
         private ProductNameNormalizer $normalizer,
-        private ExpansionCacheService $cache,
+        private ProductNameCacheService $cache,
         private BedrockGenerateClient $client,
         private ProductNameExpansionResponseParser $parser,
     ) {}
@@ -32,7 +32,7 @@ final class BedrockBatchExpansionService
 
         foreach ($productNames as $originalName) {
             $normalized = $this->normalizer->normalize($originalName);
-            $cached = $this->cache->get($normalized);
+            $cached = $this->cache->get($normalized, 'expansion');
 
             if ($cached !== null) {
                 $results[] = array_merge([
@@ -50,11 +50,16 @@ final class BedrockBatchExpansionService
             }
         }
 
-        $pendingIndexes = array_keys(array_filter($results, fn ($r) => isset($r['_pending'])));
+        $pendingIndexes = collect($results)
+            ->filter(fn($r) => isset($r['_pending']))
+            ->keys()
+            ->all();
 
         foreach (array_chunk($pendingIndexes, $chunkSize) as $chunkIndexes) {
-            $chunkNames = array_map(fn (int $i) => $results[$i]['normalized'], $chunkIndexes);
-            $maxTokens = count($chunkNames) * 80;
+            $chunkNames = collect($chunkIndexes)
+                ->map(fn(int $i) => $results[$i]['normalized'])
+                ->all();
+            $maxTokens = count($chunkNames) * 200;
 
             try {
                 $raw = $this->client->generate(
@@ -95,11 +100,12 @@ final class BedrockBatchExpansionService
                 $this->cache->put(
                     $results[$resultIndex]['normalized'],
                     $expandedResult,
+                    'expansion',
                 );
             }
         }
 
-        return array_values($results);
+        return collect($results)->values()->all();
     }
 
     /**

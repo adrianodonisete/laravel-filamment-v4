@@ -36,6 +36,7 @@ class BedrockController extends Controller
         $payload = [
             'original' => $productName,
             'result' => $result,
+            'model' => '',
         ];
 
         if (config('app.debug')) {
@@ -62,7 +63,7 @@ class BedrockController extends Controller
             ], 502);
         }
 
-        $fromCache = count(array_filter($results, fn ($r) => $r['cached'] === true));
+        $fromCache = count(array_filter($results, fn($r) => $r['cached'] === true));
         $fromModel = count($results) - $fromCache;
 
         return response()->json([
