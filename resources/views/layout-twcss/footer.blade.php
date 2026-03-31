@@ -4,6 +4,18 @@
         <p>&copy; {{ date('Y') }} GLPI Controle</p>
     </div>
 </footer>
+
+<script>
+    setTimeout(function() {
+        fetch('/session/getdate', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json());
+    }, 1 * 60 * 1000); // a cada 8 minutos (480000 ms) // TODO: ajustar para 8 minutos
+</script>
 </body>
 
 </html>

@@ -64,7 +64,7 @@ return [
         ],
 
         'mariaglpi' => [
-            'driver' => 'mysql', //'mariadb',
+            'driver' => 'mysql', // 'mariadb',
             'url' => env('DB_URL_MARIAGLPI'),
             'host' => env('DB_HOST_MARIAGLPI', '127.0.0.1'),
             'port' => env('DB_PORT_MARIAGLPI', '3306'),
@@ -116,6 +116,21 @@ return [
             'prefix_indexes' => true,
             'search_path' => 'public',
             'sslmode' => 'prefer',
+        ],
+
+        'sqlsrv_local' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DB_URL'),
+            'host' => env('DB_HOST_SQLSRV_LOCAL', 'localhost'),
+            'port' => env('DB_PORT_SQLSRV_LOCAL', '1433'),
+            'database' => env('DB_DATABASE_SQLSRV_LOCAL', 'laravel'),
+            'username' => env('DB_USERNAME_SQLSRV_LOCAL', 'root'),
+            'password' => env('DB_PASSWORD_SQLSRV_LOCAL', ''),
+            'charset' => env('DB_CHARSET', 'utf8'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
+            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
         'sqlsrv' => [
