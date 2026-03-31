@@ -22,7 +22,7 @@ Route::resource('books', BookController::class);
 Route::get('/session/getdate', function () {
     return response()->json([
         'date' => now()->format('Y-m-d H:i:s'),
-    ])->status(200);
+    ], 200);
 });
 
 require __DIR__ . '/glpi/glpi_routes.php';

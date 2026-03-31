@@ -5,16 +5,12 @@
     </div>
 </footer>
 
-<script>
-    setTimeout(function() {
-        fetch('/session/getdate', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => response.json());
-    }, 1 * 60 * 1000); // a cada 8 minutos (480000 ms) // TODO: ajustar para 8 minutos
+<script type="text/javascript">
+    (function() {
+        setInterval(function() {
+            fetch('/session/getdate').then(response => response.json());
+        }, 8 * 60 * 1000); // a cada 8 minutos (480000 ms)
+    })();
 </script>
 </body>
 
