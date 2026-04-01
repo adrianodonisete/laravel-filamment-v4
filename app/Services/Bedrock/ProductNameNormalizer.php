@@ -176,13 +176,13 @@ final class ProductNameNormalizer
         $aNorm = self::toLowerNoAccents($a);
         $bNorm = self::toLowerNoAccents($b);
 
-        if ($aNorm === $bNorm) {
-            return 10.0;
+        // If either string is empty after normalization, return 0.
+        if (empty($aNorm) || empty($bNorm)) {
+            return 0.0;
         }
 
-        // If either string is empty after normalization, return 0.
-        if ($aNorm === '' || $bNorm === '') {
-            return 0.0;
+        if ($aNorm === $bNorm) {
+            return 10.0;
         }
 
         // Calculate the length of the longest common subsequence (LCS)
