@@ -7,12 +7,13 @@ use App\Models\SugestaoVinculacao\SugestVincCacheCall;
 final class ProductNameCacheService
 {
     private const KEY_PREFIX_OTIMIZACAO = 'bedrock_otimizacao:';
+
     private const KEY_PREFIX_SUGESTAO = 'bedrock_sugestao:';
 
     /**
      * @return array<string, mixed>|null
      */
-    public function get(string $productName, string $option = 'expansion'): ?array
+    public function get(string $productName, string $option): ?array
     {
         $row = SugestVincCacheCall::getOne(self::key($productName, $option));
         if ($row === null) {
@@ -33,17 +34,17 @@ final class ProductNameCacheService
     /**
      * @param  array<string, mixed>|object  $result
      */
-    public function put(string $productName, array|object $result, string $option = 'expansion'): void
+    public function put(string $productName, array|object $result, string $option): void
     {
         SugestVincCacheCall::saveByChave(self::key($productName, $option), $result);
     }
 
-    public function forget(string $productName, string $option = 'expansion'): void
+    public function forget(string $productName, string $option): void
     {
         SugestVincCacheCall::deleteByChave(self::key($productName, $option));
     }
 
-    public static function key(string $productName, string $option = 'expansion'): string
+    public static function key(string $productName, string $option): string
     {
         $prefix = match (true) {
             $option === 'expansion', $option === 'otimizacao' => self::KEY_PREFIX_OTIMIZACAO,
@@ -52,6 +53,6 @@ final class ProductNameCacheService
             default => "bedrock_{$option}:",
         };
 
-        return $prefix . md5(mb_strtolower(trim($productName)));
+        return $prefix.md5(mb_strtolower(trim($productName)));
     }
 }

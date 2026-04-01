@@ -10,7 +10,6 @@ use Throwable;
 final class BedrockBatchExpansionService
 {
     public function __construct(
-        private ProductNameNormalizer $normalizer,
         private ProductNameCacheService $cache,
         private BedrockGenerateClient $client,
         private ProductNameExpansionResponseParser $parser,
@@ -31,7 +30,7 @@ final class BedrockBatchExpansionService
         $results = [];
 
         foreach ($productNames as $originalName) {
-            $normalized = $this->normalizer->normalize($originalName);
+            $normalized = ProductNameNormalizer::normalize($originalName);
             $cached = $this->cache->get($normalized, 'otimizacao');
 
             if ($cached) {
@@ -51,13 +50,13 @@ final class BedrockBatchExpansionService
         }
 
         $pendingIndexes = collect($results)
-            ->filter(fn($r) => isset($r['_pending']))
+            ->filter(fn ($r) => isset($r['_pending']))
             ->keys()
             ->all();
 
         foreach (array_chunk($pendingIndexes, $chunkSize) as $chunkIndexes) {
             $chunkNames = collect($chunkIndexes)
-                ->map(fn(int $i) => $results[$i]['normalized'])
+                ->map(fn (int $i) => $results[$i]['normalized'])
                 ->all();
             $maxTokens = count($chunkNames) * 200;
 
@@ -139,10 +138,10 @@ PROMPT;
 
         $list = '';
         foreach ($names as $i => $name) {
-            $list .= ($i + 1) . '. ' . $name . PHP_EOL;
+            $list .= ($i + 1).'. '.$name.PHP_EOL;
         }
 
-        return $instructions . PHP_EOL . $list;
+        return $instructions.PHP_EOL.$list;
     }
 
     /**
