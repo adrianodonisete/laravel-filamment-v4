@@ -32,20 +32,20 @@ final class BedrockBatchExpansionService
 
         foreach ($productNames as $originalName) {
             $normalized = $this->normalizer->normalize($originalName);
-            $cached = $this->cache->get($normalized, 'expansion');
+            $cached = $this->cache->get($normalized, 'otimizacao');
 
-            if ($cached !== null) {
+            if ($cached) {
                 $results[] = array_merge([
-                    'original'   => $originalName,
+                    'original' => $originalName,
                     'normalized' => $normalized,
-                    'cached'     => true,
+                    'cached' => true,
                 ], $cached);
             } else {
                 $results[] = [
-                    'original'   => $originalName,
+                    'original' => $originalName,
                     'normalized' => $normalized,
-                    'cached'     => false,
-                    '_pending'   => true,
+                    'cached' => false,
+                    '_pending' => true,
                 ];
             }
         }
@@ -85,22 +85,22 @@ final class BedrockBatchExpansionService
 
                 if ($item !== null && is_array($item)) {
                     $expandedResult = [
-                        'success'      => true,
+                        'success' => true,
                         'expanded_name' => trim((string) ($item['expanded_name'] ?? '')),
-                        'marca'        => $item['marca'] ?? null,
-                        'embalagem'    => $item['embalagem'] ?? null,
-                        'medida'       => $item['medida'] ?? null,
+                        'marca' => $item['marca'] ?? null,
+                        'embalagem' => $item['embalagem'] ?? null,
+                        'medida' => $item['medida'] ?? null,
                     ];
                 } else {
                     $expandedResult = $this->emptyResult();
                 }
 
-                $results[$resultIndex] = array_merge($results[$resultIndex], $expandedResult);
+                $results[$resultIndex] = [...$results[$resultIndex], ...$expandedResult];
 
                 $this->cache->put(
                     $results[$resultIndex]['normalized'],
                     $expandedResult,
-                    'expansion',
+                    'otimizacao',
                 );
             }
         }
@@ -139,10 +139,10 @@ PROMPT;
 
         $list = '';
         foreach ($names as $i => $name) {
-            $list .= ($i + 1) . '. ' . $name . "\n";
+            $list .= ($i + 1) . '. ' . $name . PHP_EOL;
         }
 
-        return $instructions . "\n" . $list;
+        return $instructions . PHP_EOL . $list;
     }
 
     /**
@@ -182,11 +182,11 @@ PROMPT;
     private function emptyResult(): array
     {
         return [
-            'success'       => false,
+            'success' => false,
             'expanded_name' => '',
-            'marca'         => null,
-            'embalagem'     => null,
-            'medida'        => null,
+            'marca' => null,
+            'embalagem' => null,
+            'medida' => null,
         ];
     }
 }

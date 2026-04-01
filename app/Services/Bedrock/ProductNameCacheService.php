@@ -2,45 +2,55 @@
 
 namespace App\Services\Bedrock;
 
-use Illuminate\Support\Facades\Cache;
+use App\Models\SugestaoVinculacao\SugestVincCacheCall;
 
 final class ProductNameCacheService
 {
-    private const KEY_PREFIX_EXPANSION = 'bedrock_expansion:';
-
-    private const KEY_PREFIX_COMPARE = 'bedrock_compare:';
+    private const KEY_PREFIX_OTIMIZACAO = 'bedrock_otimizacao:';
+    private const KEY_PREFIX_SUGESTAO = 'bedrock_sugestao:';
 
     /**
      * @return array<string, mixed>|null
      */
     public function get(string $productName, string $option = 'expansion'): ?array
     {
-        /** @var array<string, mixed>|null $cached */
-        $cached = Cache::get($this->key($productName, $option));
+        $row = SugestVincCacheCall::getOne(self::key($productName, $option));
+        if ($row === null) {
+            return null;
+        }
 
-        return $cached;
+        /** @var string|null $conteudo */
+        $conteudo = $row->conteudo ?? null;
+
+        if ($conteudo) {
+            /** @var array<string, mixed>|null $decoded */
+            return json_decode($conteudo, true);
+        } else {
+            return null;
+        }
     }
 
     /**
-     * @param  array<string, mixed>  $result
+     * @param  array<string, mixed>|object  $result
      */
-    public function put(string $productName, array $result, string $option = 'expansion'): void
+    public function put(string $productName, array|object $result, string $option = 'expansion'): void
     {
-        $ttl = (int) config('prism.providers.bedrock.expansion_cache_ttl', 86400);
-
-        Cache::put($this->key($productName, $option), $result, $ttl);
+        SugestVincCacheCall::saveByChave(self::key($productName, $option), $result);
     }
 
     public function forget(string $productName, string $option = 'expansion'): void
     {
-        Cache::forget($this->key($productName, $option));
+        SugestVincCacheCall::deleteByChave(self::key($productName, $option));
     }
 
-    private function key(string $productName, string $option): string
+    public static function key(string $productName, string $option = 'expansion'): string
     {
-        $prefix = $option === 'compare'
-            ? self::KEY_PREFIX_COMPARE
-            : self::KEY_PREFIX_EXPANSION;
+        $prefix = match (true) {
+            $option === 'expansion', $option === 'otimizacao' => self::KEY_PREFIX_OTIMIZACAO,
+            $option === 'compare', $option === 'sugestao' => self::KEY_PREFIX_SUGESTAO,
+            $option === '' => 'bedrock_default:',
+            default => "bedrock_{$option}:",
+        };
 
         return $prefix . md5(mb_strtolower(trim($productName)));
     }

@@ -23,6 +23,10 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - laravel/sail (SAIL) - v1
 - phpunit/phpunit (PHPUNIT) - v11
 - tailwindcss (TAILWINDCSS) - v4
+- prisms/prisms (PRISMS)
+- ollama/ollama (OLLAMA)
+- openai/openai (OPENAI)
+- bedrock/bedrock (BEDROCK)
 
 ## Conventions
 
@@ -99,6 +103,8 @@ This application is a Laravel application and its main Laravel ecosystems packag
 ## PHP
 
 - Always use curly braces for control structures, even if it has one line.
+- Always use syntax of PHP 8.4
+- When work with arrays, always use "collect" methods
 
 ### Constructors
 
