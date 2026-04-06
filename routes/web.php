@@ -25,5 +25,6 @@ Route::get('/session/getdate', function () {
     ], 200);
 });
 
-require __DIR__ . '/glpi/glpi_routes.php';
-require __DIR__ . '/sqlserver/sqlserver_routes.php';
+require __DIR__.'/admin/admin_routes.php';
+require __DIR__.'/glpi/glpi_routes.php';
+require __DIR__.'/sqlserver/sqlserver_routes.php';
