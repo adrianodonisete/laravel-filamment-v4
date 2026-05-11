@@ -30,16 +30,16 @@ class CsvToJsonController extends Controller
             $csvContent = (string) $request->input('csv_text');
         }
 
-        $data = $action->execute($csvContent);
-
-        $filename = 'csv-to-json-'.now()->format('Y-m-d-H-i-s').'.json';
-        $path = 'utils/'.$filename;
-
-        Storage::disk('public')->put($path, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        try {
+            $path = $action->handle($csvContent);
+        } catch (\Exception $e) {
+            return redirect()->route('utils.csv-to-json.index')
+                ->withErrors(['csv' => 'Ocorreu um erro ao processar o arquivo: ' . $e->getMessage()]);
+        }
 
         return redirect()
             ->route('utils.csv-to-json.index')
             ->with('success', 'Arquivo JSON gerado com sucesso!')
-            ->with('download_url', Storage::disk('public')->url($path));
+            ->with('download_url', asset($path));
     }
 }
